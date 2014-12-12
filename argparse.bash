@@ -1,13 +1,15 @@
 #!/bin/bash
 
 # Use python's argparse module in shell scripts
-
+#
 # The function `argparse` parses its arguments using
 # argparse.ArgumentParser; the parser is defined in the function's
 # stdin.
-
+#
 # Executing ``argparse.bash`` (as opposed to sourcing it) prints a
 # script template.
+#
+# https://github.com/nhoffman/argparse-bash
 
 argparse(){
     argparser=$(mktemp "${0}.temp.XXXXXXXX")
