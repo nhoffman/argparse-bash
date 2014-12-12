@@ -2,16 +2,19 @@
  argparse.bash
 ===============
 
-Use python's argparse module in shell scripts
+Use Python's argparse module in shell scripts
 
 The function ``argparse`` parses its arguments using
-``argparse.ArgumentParser`` The parser is defined in the function's
-stdin. ``argparse.bash`` should be in the same directory as a script
-that uses it.
+``argparse.ArgumentParser``. The command line options are defined in
+the function's stdin. ``argparse.bash`` should be in the same
+directory as a script that uses it.
 
 Python 2.7 is required. See
 https://docs.python.org/2.7/library/argparse.html for a description of
-the python module.
+the python module. Note that some of the Python module's features (eg,
+nargs='+', boolean values) aren't going to work well (or at all) in
+this simplistic implementation.
+
 
 Installation
 ============
