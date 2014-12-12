@@ -4,10 +4,16 @@
 
 Use python's argparse module in shell scripts
 
-The function `argparse` parses its arguments using
-argparse.ArgumentParser; the parser is defined in the function's
-stdin. Here's the contents of ``example.sh``; ``argparse.bash`` needs
-to be in the same directory)::
+The function ``argparse`` parses its arguments using
+``argparse.ArgumentParser`` The parser is defined in the function's
+stdin. ``argparse.bash`` should be in the same directory as a script
+that uses it.
+
+Python 2.7 is required. See
+https://docs.python.org/2.7/library/argparse.html for a description of
+the python module.
+
+Here's an example, ``example.sh``::
 
   #!/bin/bash
 
@@ -23,6 +29,17 @@ to be in the same directory)::
   echo required outfile: "$OUTFILE"
   echo optional: "$NOT_REQUIRED"
 
+
+Example output of this script::
+
+  $ ./example.sh infile.txt "name with spaces.txt"
+  required infile: infile.txt
+  required outfile: name with spaces.txt
+  optional: 42
+
+
+Note that hyphens in the long option names are changed to underscores,
+and variables are all-caps (to be more bash-y).
 
 Help text looks like this::
 
@@ -44,14 +61,6 @@ Error message (both infile and outfile are required)::
   $ ./example.sh foo
   usage: example.sh [-h] [-n NOT_REQUIRED] infile outfile
   example.sh: error: too few arguments
-
-
-Example output of this script::
-
-  $ ./example.sh infile.txt "name with spaces.txt"
-  required infile: infile.txt
-  required outfile: name with spaces.txt
-  optional: 42
 
 
 Executing ``argparse.bash`` (as opposed to sourcing it) prints a
