@@ -13,6 +13,19 @@ Python 2.7 is required. See
 https://docs.python.org/2.7/library/argparse.html for a description of
 the python module.
 
+Installation
+============
+
+Get ``argparse.sh``::
+
+  wget https://raw.githubusercontent.com/nhoffman/argparse-bash/master/argparse.bash
+  chmod +x argparse.bash
+
+Then move the file into the same directory as any scripts that will use it.
+
+Usage
+=====
+
 Here's an example, ``example.sh``::
 
   #!/bin/bash
