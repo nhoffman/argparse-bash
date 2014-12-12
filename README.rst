@@ -26,6 +26,10 @@ Get ``argparse.sh``::
 
 Then move the file into the same directory as any scripts that will use it.
 
+Alternatively, you can paste the body of the ``argparse()`` function
+into your script (in which case you would of course omit the line
+sourcing ``argparse.bash`` in the examples below).
+
 Usage
 =====
 
