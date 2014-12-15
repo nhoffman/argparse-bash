@@ -16,6 +16,15 @@ nargs='+', boolean values) aren't going to work well (or at all) in
 this simplistic implementation.
 
 
+Rationale
+=========
+
+There isn't a good one. This is an abomination, really. The proper
+thing to do would be to abandon *sh altogether, and instead use a
+scripting language with a proper library for defining a command line
+interface. Can anyone think of one?
+
+
 Installation
 ============
 
@@ -29,6 +38,7 @@ Then move the file into the same directory as any scripts that will use it.
 Alternatively, you can paste the body of the ``argparse()`` function
 into your script (in which case you would of course omit the line
 sourcing ``argparse.bash`` in the examples below).
+
 
 Usage
 =====
@@ -76,14 +86,23 @@ Help text looks like this::
 			  optional argument [default 42]
 
 
-Error message (both infile and outfile are required)::
+Error messages::
 
   $ ./example.sh foo
   usage: example.sh [-h] [-n NOT_REQUIRED] infile outfile
   example.sh: error: too few arguments
-
+  $ ./example.sh foo bar -n baz
+  usage: example.sh [-h] [-n NOT_REQUIRED] infile outfile
+  example.sh: error: argument -n/--not-required: invalid int value: 'baz'
 
 Executing ``argparse.bash`` (as opposed to sourcing it) prints a
-script template, so that you can start a new script like this::
+script template to stdout::
 
-  $ argparse.bash > my_script_using_argparse.sh
+  $ ./argparse.bash
+  #!/bin/bash
+
+  source $(dirname $0)/argparse.bash || exit 1
+  argparse "$@" <<EOF || exit 1
+  parser.add_argument('infile')
+  parser.add_argument('-o', '--outfile')
+  EOF
