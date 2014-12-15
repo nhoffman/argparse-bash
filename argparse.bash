@@ -12,7 +12,7 @@
 # https://github.com/nhoffman/argparse-bash
 
 argparse(){
-    argparser=$(mktemp "${0}.temp.XXXXXXXX")
+    argparser=$(mktemp "/tmp/${0}.temp.XXXXXXXX")
     cat > "$argparser" <<EOF
 import sys
 import argparse
@@ -55,7 +55,7 @@ if echo $0 | grep -q argparse.bash; then
     cat <<FOO
 #!/bin/bash
 
-source \$(dirname \$0)/argparse.bash
+source \$(dirname \$0)/argparse.bash || exit 1
 argparse "\$@" <<EOF || exit 1
 parser.add_argument('infile')
 parser.add_argument('-o', '--outfile')

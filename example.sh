@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/argparse.bash
+source $(dirname $0)/argparse.bash || exit 1
 argparse "$@" <<EOF || exit 1
 parser.add_argument('infile')
 parser.add_argument('outfile')
