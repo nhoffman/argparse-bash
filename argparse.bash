@@ -14,9 +14,11 @@
 argparse(){
     argparser=$(mktemp "/tmp/${0}.temp.XXXXXXXX")
     cat > "$argparser" <<EOF
+from __future__ import print_function
 import sys
 import argparse
 import os
+
 
 class MyArgumentParser(argparse.ArgumentParser):
     def print_help(self, file=None):
@@ -33,18 +35,18 @@ EOF
     cat >> "$argparser" <<EOF
 args = parser.parse_args()
 for arg in [a for a in dir(args) if not a.startswith('_')]:
-    print '{}="{}";'.format(arg.upper(), getattr(args, arg) or '')
+    print('{}="{}";'.format(arg.upper(), getattr(args, arg) or ''))
 EOF
 
     # Define variables corresponding to the options if the args can be
     # parsed without errors; otherwise, print the text of the error
     # message.
     if python "$argparser" "$@" &> /dev/null; then
-	eval $(python "$argparser" "$@")
-	retval=0
+        eval $(python "$argparser" "$@")
+        retval=0
     else
-	python "$argparser" "$@"
-	retval=1
+        python "$argparser" "$@"
+        retval=1
     fi
 
     rm "$argparser"
@@ -59,6 +61,10 @@ source \$(dirname \$0)/argparse.bash || exit 1
 argparse "\$@" <<EOF || exit 1
 parser.add_argument('infile')
 parser.add_argument('-o', '--outfile')
+
 EOF
+
+echo "INFILE: \${INFILE}"
+echo "OUTFILE: \${OUTFILE}"
 FOO
 fi
