@@ -12,7 +12,7 @@
 # https://github.com/nhoffman/argparse-bash
 
 argparse(){
-    argparser=$(mktemp "/tmp/${0}.temp.XXXXXXXX")
+    argparser=$(mktemp)
     cat > "$argparser" <<EOF
 from __future__ import print_function
 import sys
