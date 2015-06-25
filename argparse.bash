@@ -10,6 +10,7 @@
 # script template.
 #
 # https://github.com/nhoffman/argparse-bash
+# MIT License - Copyright (c) 2015 Noah Hoffman
 
 argparse(){
     argparser=$(mktemp)

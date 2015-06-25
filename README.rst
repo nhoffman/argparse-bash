@@ -109,3 +109,10 @@ script template to stdout::
   echo "INFILE: ${INFILE}"
   echo "OUTFILE: ${OUTFILE}"
 
+License
+=======
+
+MIT License (see LICENSE.txt)
+
+Copyright (c) 2015 Noah Hoffman
+
