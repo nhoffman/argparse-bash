@@ -28,7 +28,7 @@ interface. Can anyone think of one?
 Installation
 ============
 
-Get ``argparse.sh``::
+Get ``argparse.bash``::
 
   wget https://raw.githubusercontent.com/nhoffman/argparse-bash/master/argparse.bash
   chmod +x argparse.bash
