@@ -13,7 +13,7 @@
 # MIT License - Copyright (c) 2015 Noah Hoffman
 
 argparse(){
-    argparser=$(mktemp)
+    argparser=$(mktemp 2>/dev/null || mktemp -t argparser)
     cat > "$argparser" <<EOF
 from __future__ import print_function
 import sys
