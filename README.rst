@@ -4,6 +4,9 @@
 
 Use Python's argparse module in shell scripts
 
+.. image:: https://travis-ci.org/nhoffman/argparse-bash.svg?branch=master
+   :target: https://travis-ci.org/nhoffman/argparse-bash
+
 The function ``argparse`` parses its arguments using
 ``argparse.ArgumentParser``. The command line options are defined in
 the function's stdin. ``argparse.bash`` should be in the same
