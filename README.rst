@@ -12,20 +12,11 @@ The function ``argparse`` parses its arguments using
 the function's stdin. ``argparse.bash`` should be in the same
 directory as a script that uses it.
 
-Python 2.7+ or 3.2+ is required. See
+Python 2.6+ or 3.2+ is required. See
 https://docs.python.org/2.7/library/argparse.html for a description of
 the python module. Note that some of the Python module's features (eg,
 nargs='+', boolean values) aren't going to work well (or at all) in
 this simplistic implementation.
-
-
-Rationale
-=========
-
-There isn't a good one. This is an abomination, really. The proper
-thing to do would be to abandon *sh altogether, and instead use a
-scripting language with a proper library for defining a command line
-interface. Can anyone think of one?
 
 
 Installation
