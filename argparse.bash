@@ -34,12 +34,16 @@ EOF
     cat >> "$argparser"
 
     cat >> "$argparser" <<EOF
+import types
 args = parser.parse_args()
 for arg in [a for a in dir(args) if not a.startswith('_')]:
     value = getattr(args, arg, None)
     if value is None:
         value = ''
-    print('{0}="{1}";'.format(arg.upper(), value))
+    if type(value) == types.ListType:
+        print('{0}=({1});'.format(arg.upper(), " ".join(map(lambda s: '"%s"' % s, value))))
+    else:
+        print('{0}="{1}";'.format(arg.upper(), value))
 EOF
 
     # Define variables corresponding to the options if the args can be
