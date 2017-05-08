@@ -34,13 +34,12 @@ EOF
     cat >> "$argparser"
 
     cat >> "$argparser" <<EOF
-import types
 args = parser.parse_args()
 for arg in [a for a in dir(args) if not a.startswith('_')]:
     value = getattr(args, arg, None)
     if value is None:
         value = ''
-    if type(value) == types.ListType:
+    if type(value) is list:
         print('{0}=({1});'.format(arg.upper(), " ".join(map(lambda s: '"%s"' % s, value))))
     else:
         print('{0}="{1}";'.format(arg.upper(), value))
