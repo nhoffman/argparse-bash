@@ -39,7 +39,12 @@ for arg in [a for a in dir(args) if not a.startswith('_')]:
     value = getattr(args, arg, None)
     if value is None:
         value = ''
-    print('{0}="{1}";'.format(arg.upper(), value))
+    if isinstance(value, list):
+        print('{0}=({1});'.format(
+            arg.upper(),
+            ' '.join('"{}"'.format(s) for s in value)))
+    else:
+        print('{0}="{1}";'.format(arg.upper(), value))
 EOF
 
     # Define variables corresponding to the options if the args can be
