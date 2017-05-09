@@ -15,8 +15,8 @@ directory as a script that uses it.
 Python 2.6+ or 3.2+ is required. See
 https://docs.python.org/2.7/library/argparse.html for a description of
 the python module. Note that some of the Python module's features (eg,
-nargs='+', boolean values) aren't going to work well (or at all) in
-this simplistic implementation.
+boolean values) aren't going to work as expected (or at all) in this
+simplistic implementation.
 
 
 Installation
@@ -41,18 +41,23 @@ Here's an example, ``example.sh``::
 
   #!/bin/bash
 
-  source $(dirname $0)/argparse.bash
+  source $(dirname $0)/argparse.bash || exit 1
   argparse "$@" <<EOF || exit 1
   parser.add_argument('infile')
   parser.add_argument('outfile')
-  parser.add_argument('-n', '--not-required', default=42, type=int,
-                      help='optional argument [default %(default)s]')
+  parser.add_argument('-a', '--the-answer', default=42, type=int,
+		      help='Pick a number [default %(default)s]')
+  parser.add_argument('-m', '--multiple', nargs='+',
+		      help='multiple values allowed')
   EOF
 
   echo required infile: "$INFILE"
   echo required outfile: "$OUTFILE"
-  echo optional: "$NOT_REQUIRED"
-
+  echo the answer: "$THE_ANSWER"
+  echo multiple:
+  for a in "${MULTIPLE[@]}"; do
+      echo "  $a"
+  done
 
 Example output of this script::
 
@@ -68,7 +73,8 @@ and variables are all-caps (to be more bash-y).
 Help text looks like this::
 
   $ ./example.sh -h
-  usage: example.sh [-h] [-n NOT_REQUIRED] infile outfile
+  usage: example.sh [-h] [-a THE_ANSWER] [-m MULTIPLE [MULTIPLE ...]]
+		    infile outfile
 
   positional arguments:
     infile
@@ -76,18 +82,21 @@ Help text looks like this::
 
   optional arguments:
     -h, --help            show this help message and exit
-    -n NOT_REQUIRED, --not-required NOT_REQUIRED
-			  optional argument [default 42]
-
+    -a THE_ANSWER, --the-answer THE_ANSWER
+			  Pick a number [default 42]
+    -m MULTIPLE [MULTIPLE ...], --multiple MULTIPLE [MULTIPLE ...]
+			  multiple values allowed
 
 Error messages::
 
   $ ./example.sh foo
-  usage: example.sh [-h] [-n NOT_REQUIRED] infile outfile
+  usage: example.sh [-h] [-a THE_ANSWER] [-m MULTIPLE [MULTIPLE ...]]
+		    infile outfile
   example.sh: error: too few arguments
   $ ./example.sh foo bar -n baz
-  usage: example.sh [-h] [-n NOT_REQUIRED] infile outfile
-  example.sh: error: argument -n/--not-required: invalid int value: 'baz'
+  usage: example.sh [-h] [-a THE_ANSWER] [-m MULTIPLE [MULTIPLE ...]]
+		    infile outfile
+  example.sh: error: unrecognized arguments: -n baz
 
 Executing ``argparse.bash`` (as opposed to sourcing it) prints a
 script template to stdout::
@@ -108,5 +117,5 @@ License
 
 MIT License (see LICENSE.txt)
 
-Copyright (c) 2015 Noah Hoffman
+Copyright (c) 2017 Noah Hoffman
 
