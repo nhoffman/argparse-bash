@@ -13,7 +13,7 @@ python:
 
 script:
   - ./example.sh infile outfile
-  - ./example.sh infile outfile -m a b c -n 10
+  - ./example.sh infile outfile -m a b c -a 10
 
 notifications:
   email:
