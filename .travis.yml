@@ -12,8 +12,7 @@ python:
   - "3.6"
 
 script:
-  - ./example.sh infile outfile
-  - ./example.sh infile outfile -m a b c -a 10
+  - ./test.py
 
 notifications:
   email:
