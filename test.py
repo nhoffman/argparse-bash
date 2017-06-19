@@ -42,15 +42,15 @@ class TestEverything(unittest.TestCase):
 
     def test02(self):
         output = run('infile', 'outfile', '-m', 'one fish', 'two fish')
-        self.assertIn('arg with multiple values: [one fish] [two fish]', output)
+        self.assertTrue('arg with multiple values: [one fish] [two fish]' in output)
 
     def test03(self):
         output = run('infile', 'outfile', '-d')
-        self.assertIn('yes, do it', output)
+        self.assertTrue('yes, do it' in output)
 
     def test04(self):
         output = run('infile', 'outfile', '-a', '0')
-        self.assertIn('the answer: 0', output)
+        self.assertTrue('the answer: 0' in output)
 
 
 if __name__ == '__main__':
