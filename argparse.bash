@@ -36,15 +36,15 @@ EOF
     cat >> "$argparser" <<EOF
 args = parser.parse_args()
 for arg in [a for a in dir(args) if not a.startswith('_')]:
+    key = arg.upper()
     value = getattr(args, arg, None)
-    if value is None:
-        value = ''
-    if isinstance(value, list):
-        print('{0}=({1});'.format(
-            arg.upper(),
-            ' '.join('"{0}"'.format(s) for s in value)))
+
+    if isinstance(value, bool) or value is None:
+        print('{0}="{1}";'.format(key, 'yes' if value else ''))
+    elif isinstance(value, list):
+        print('{0}=({1});'.format(key, ' '.join('"{0}"'.format(s) for s in value)))
     else:
-        print('{0}="{1}";'.format(arg.upper(), value))
+        print('{0}="{1}";'.format(key, value))
 EOF
 
     # Define variables corresponding to the options if the args can be

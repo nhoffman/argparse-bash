@@ -6,6 +6,8 @@ parser.add_argument('infile')
 parser.add_argument('outfile')
 parser.add_argument('-a', '--the-answer', default=42, type=int,
                     help='Pick a number [default %(default)s]')
+parser.add_argument('-d', '--do-the-thing', action='store_true',
+                    default=False, help='store a boolean [default %(default)s]')
 parser.add_argument('-m', '--multiple', nargs='+',
                     help='multiple values allowed')
 EOF
@@ -13,7 +15,15 @@ EOF
 echo required infile: "$INFILE"
 echo required outfile: "$OUTFILE"
 echo the answer: "$THE_ANSWER"
-echo multiple:
+echo -n do the thing?
+if [[ $DO_THE_THING ]]; then
+    echo " yes, do it"
+else
+    echo " no, do not do it"
+fi
+echo -n "arg with multiple values: "
 for a in "${MULTIPLE[@]}"; do
-    echo "  $a"
+    echo -n "[$a] "
 done
+echo
+

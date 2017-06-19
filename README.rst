@@ -14,9 +14,8 @@ directory as a script that uses it.
 
 Python 2.6+ or 3.2+ is required. See
 https://docs.python.org/2.7/library/argparse.html for a description of
-the python module. Note that some of the Python module's features (eg,
-boolean values) aren't going to work as expected (or at all) in this
-simplistic implementation.
+the python module. Note that some of the Python module's features
+won't work as expected (or at all) in this simplistic implementation.
 
 
 Installation
@@ -47,6 +46,8 @@ Here's an example, ``example.sh``::
   parser.add_argument('outfile')
   parser.add_argument('-a', '--the-answer', default=42, type=int,
 		      help='Pick a number [default %(default)s]')
+  parser.add_argument('-d', '--do-the-thing', action='store_true',
+		      default=False, help='store a boolean [default %(default)s]')
   parser.add_argument('-m', '--multiple', nargs='+',
 		      help='multiple values allowed')
   EOF
@@ -54,18 +55,26 @@ Here's an example, ``example.sh``::
   echo required infile: "$INFILE"
   echo required outfile: "$OUTFILE"
   echo the answer: "$THE_ANSWER"
-  echo multiple:
+  echo -n do the thing?
+  if [[ $DO_THE_THING ]]; then
+      echo " yes, do it"
+  else
+      echo " no, do not do it"
+  fi
+  echo -n "arg with multiple values: "
   for a in "${MULTIPLE[@]}"; do
-      echo "  $a"
+      echo -n "[$a] "
   done
+  echo
 
 Example output of this script::
 
   $ ./example.sh infile.txt "name with spaces.txt"
   required infile: infile.txt
   required outfile: name with spaces.txt
-  optional: 42
-
+  the answer: 42
+  do the thing? no, do not do it
+  arg with multiple values: []
 
 Note that hyphens in the long option names are changed to underscores,
 and variables are all-caps (to be more bash-y).
@@ -73,7 +82,7 @@ and variables are all-caps (to be more bash-y).
 Help text looks like this::
 
   $ ./example.sh -h
-  usage: example.sh [-h] [-a THE_ANSWER] [-m MULTIPLE [MULTIPLE ...]]
+  usage: example.sh [-h] [-a THE_ANSWER] [-d] [-m MULTIPLE [MULTIPLE ...]]
 		    infile outfile
 
   positional arguments:
@@ -84,17 +93,18 @@ Help text looks like this::
     -h, --help            show this help message and exit
     -a THE_ANSWER, --the-answer THE_ANSWER
 			  Pick a number [default 42]
+    -d, --do-the-thing    store a boolean [default False]
     -m MULTIPLE [MULTIPLE ...], --multiple MULTIPLE [MULTIPLE ...]
 			  multiple values allowed
 
 Error messages::
 
   $ ./example.sh foo
-  usage: example.sh [-h] [-a THE_ANSWER] [-m MULTIPLE [MULTIPLE ...]]
+  usage: example.sh [-h] [-a THE_ANSWER] [-d] [-m MULTIPLE [MULTIPLE ...]]
 		    infile outfile
   example.sh: error: too few arguments
   $ ./example.sh foo bar -n baz
-  usage: example.sh [-h] [-a THE_ANSWER] [-m MULTIPLE [MULTIPLE ...]]
+  usage: example.sh [-h] [-a THE_ANSWER] [-d] [-m MULTIPLE [MULTIPLE ...]]
 		    infile outfile
   example.sh: error: unrecognized arguments: -n baz
 
@@ -108,9 +118,18 @@ script template to stdout::
   argparse "$@" <<EOF || exit 1
   parser.add_argument('infile')
   parser.add_argument('-o', '--outfile')
+
   EOF
+
   echo "INFILE: ${INFILE}"
   echo "OUTFILE: ${OUTFILE}"
+
+A few notes:
+
+- ``action=store_true`` or ``store_false`` provides a value of "yes"
+  for True, "" for False
+- ``args='+'`` or ``args='*'`` provides an array of values.
+
 
 License
 =======
