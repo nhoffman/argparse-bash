@@ -5,13 +5,20 @@
 """
 
 import unittest
-from subprocess import check_output
+import subprocess
 from textwrap import dedent
 
 
 def run(*args):
-    return check_output(['./example.sh'] + list(args),
-                        universal_newlines=True).strip()
+    cmd = ['./example.sh'] + list(args)
+    if hasattr(subprocess, 'check_output'):
+        # python 2.7+
+        output = subprocess.check_output(cmd, universal_newlines=True).strip()
+    else:
+        # python 2.6
+        output = subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0].strip()
+
+    return output
 
 
 def strip(val):
