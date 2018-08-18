@@ -41,7 +41,7 @@ Here's an example, ``example.sh``::
   #!/bin/bash
 
   source $(dirname $0)/argparse.bash || exit 1
-  argparse "$@" <<EOF || exit 1
+  argparse "Sample script description" "$@" <<EOF || exit 1
   parser.add_argument('infile')
   parser.add_argument('outfile')
   parser.add_argument('-a', '--the-answer', default=42, type=int,
@@ -84,6 +84,8 @@ Help text looks like this::
   $ ./example.sh -h
   usage: example.sh [-h] [-a THE_ANSWER] [-d] [-m MULTIPLE [MULTIPLE ...]]
 		    infile outfile
+
+  Sample script description
 
   positional arguments:
     infile
