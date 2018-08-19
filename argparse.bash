@@ -27,7 +27,8 @@ class MyArgumentParser(argparse.ArgumentParser):
         super(MyArgumentParser, self).print_help(file=file)
         sys.exit(1)
 
-parser = MyArgumentParser(prog=os.path.basename("$0"))
+parser = MyArgumentParser(prog=os.path.basename("$0"),
+            description="""$ARGPARSE_DESCRIPTION""")
 EOF
 
     # stdin to this function should contain the parser definition

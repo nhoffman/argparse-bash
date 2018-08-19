@@ -40,6 +40,7 @@ Here's an example, ``example.sh``::
 
   #!/bin/bash
 
+  ARGPARSE_DESCRIPTION="Sample script description"      # this is optional
   source $(dirname $0)/argparse.bash || exit 1
   argparse "$@" <<EOF || exit 1
   parser.add_argument('infile')
@@ -84,6 +85,8 @@ Help text looks like this::
   $ ./example.sh -h
   usage: example.sh [-h] [-a THE_ANSWER] [-d] [-m MULTIPLE [MULTIPLE ...]]
 		    infile outfile
+
+  Sample script description
 
   positional arguments:
     infile
