@@ -1,7 +1,8 @@
 #!/bin/bash
 
+ARGPARSE_DESCRIPTION="Sample script description"      # this is optional
 source $(dirname $0)/argparse.bash || exit 1
-argparse "Sample script description" "$@" <<EOF || exit 1
+argparse "$@" <<EOF || exit 1
 parser.add_argument('infile')
 parser.add_argument('outfile')
 parser.add_argument('-a', '--the-answer', default=42, type=int,
