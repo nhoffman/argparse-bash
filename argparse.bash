@@ -28,7 +28,7 @@ class MyArgumentParser(argparse.ArgumentParser):
         sys.exit(1)
 
 parser = MyArgumentParser(prog=os.path.basename("$0"),
-            description="$ARGPARSE_DESCRIPTION")
+            description="""$ARGPARSE_DESCRIPTION""")
 EOF
 
     # stdin to this function should contain the parser definition
