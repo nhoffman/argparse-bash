@@ -55,7 +55,7 @@ class TestEverything(unittest.TestCase):
     def test05(self):
         # argparse.bash prints a script template
         output = run('./argparse.bash')
-        self.assertTrue(output.startswith('#!/bin/bash'))
+        self.assertTrue(output.startswith('#!/usr/bin/env bash'))
 
 
 if __name__ == '__main__':

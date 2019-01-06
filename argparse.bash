@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Use python's argparse module in shell scripts
 #
@@ -66,7 +66,7 @@ EOF
 # print a script template when this script is executed
 if [[ $0 == *argparse.bash ]]; then
     cat <<FOO
-#!/bin/bash
+#!/usr/bin/env bash
 
 source \$(dirname \$0)/argparse.bash || exit 1
 argparse "\$@" <<EOF || exit 1

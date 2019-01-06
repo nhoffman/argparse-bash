@@ -38,7 +38,7 @@ Usage
 
 Here's an example, ``example.sh``::
 
-  #!/bin/bash
+  #!/usr/bin/env bash
 
   ARGPARSE_DESCRIPTION="Sample script description"      # this is optional
   source $(dirname $0)/argparse.bash || exit 1
@@ -115,7 +115,7 @@ Executing ``argparse.bash`` (as opposed to sourcing it) prints a
 script template to stdout::
 
   $ ./argparse.bash
-  #!/bin/bash
+  #!/usr/bin/env bash
 
   source $(dirname $0)/argparse.bash || exit 1
   argparse "$@" <<EOF || exit 1
