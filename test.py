@@ -9,8 +9,8 @@ import subprocess
 from textwrap import dedent
 
 
-def run(*args):
-    cmd = ['./example.sh'] + list(args)
+def run(script, *args):
+    cmd = [script] + list(args)
     if hasattr(subprocess, 'check_output'):
         # python 2.7+
         output = subprocess.check_output(cmd, universal_newlines=True).strip()
@@ -28,7 +28,7 @@ def strip(val):
 class TestEverything(unittest.TestCase):
 
     def test01(self):
-        output = run('infile', 'outfile')
+        output = run('./example.sh', 'infile', 'outfile')
 
         expected = strip("""
         required infile: infile
@@ -41,16 +41,21 @@ class TestEverything(unittest.TestCase):
         self.assertEqual(output, expected)
 
     def test02(self):
-        output = run('infile', 'outfile', '-m', 'one fish', 'two fish')
+        output = run('./example.sh', 'infile', 'outfile', '-m', 'one fish', 'two fish')
         self.assertTrue('arg with multiple values: [one fish] [two fish]' in output)
 
     def test03(self):
-        output = run('infile', 'outfile', '-d')
+        output = run('./example.sh', 'infile', 'outfile', '-d')
         self.assertTrue('yes, do it' in output)
 
     def test04(self):
-        output = run('infile', 'outfile', '-a', '0')
+        output = run('./example.sh', 'infile', 'outfile', '-a', '0')
         self.assertTrue('the answer: 0' in output)
+
+    def test05(self):
+        # argparse.bash prints a script template
+        output = run('./argparse.bash')
+        self.assertTrue(output.startswith('#!/bin/bash'))
 
 
 if __name__ == '__main__':

@@ -63,7 +63,8 @@ EOF
     return $retval
 }
 
-if echo $0 | grep -q argparse.bash; then
+# print a script template when this script is executed
+if [[ $0 == *argparse.bash ]]; then
     cat <<FOO
 #!/bin/bash
 
