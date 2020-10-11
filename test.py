@@ -9,15 +9,21 @@ import subprocess
 from textwrap import dedent
 
 
-def run(script, *args):
+def run(script,*args,expect_exit_1=False):
     cmd = [script] + list(args)
     if hasattr(subprocess, 'check_output'):
         # python 2.7+
-        output = subprocess.check_output(cmd, universal_newlines=True).strip()
+        try:
+            output = subprocess.check_output(cmd, universal_newlines=True).strip()
+        except subprocess.CalledProcessError as cpe:
+            if not expect_exit_1:
+                raise cpe
+            if cpe.returncode  != 1:
+                raise cpe
+            output = cpe.output 
     else:
         # python 2.6
         output = subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0].strip()
-
     return output
 
 
@@ -57,6 +63,9 @@ class TestEverything(unittest.TestCase):
         output = run('./argparse.bash')
         self.assertTrue(output.startswith('#!/usr/bin/env bash'))
 
+    def test06(self):
+        output = run('./example.sh','-h', expect_exit_1 = True )
+        self.assertTrue('epilog' in output)
 
 if __name__ == '__main__':
     unittest.main()
