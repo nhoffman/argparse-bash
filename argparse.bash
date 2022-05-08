@@ -28,6 +28,8 @@ class MyArgumentParser(argparse.ArgumentParser):
         sys.exit(1)
 
 parser = MyArgumentParser(prog=os.path.basename("$0"),
+            # preserve newlines in description
+            formatter_class=argparse.RawDescriptionHelpFormatter,
             description="""$ARGPARSE_DESCRIPTION""")
 EOF
 
