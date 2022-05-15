@@ -4,15 +4,15 @@
 
 Use Python's argparse module in shell scripts
 
-.. image:: https://travis-ci.org/nhoffman/argparse-bash.svg?branch=master
-   :target: https://travis-ci.org/nhoffman/argparse-bash
+.. image:: https://github.com/nhoffman/argparse-bash/actions/workflows/test.yml/badge.svg
+   :target: https://github.com/nhoffman/argparse-bash/actions/workflows/test.yml
 
 The function ``argparse`` parses its arguments using
 ``argparse.ArgumentParser``. The command line options are defined in
 the function's stdin. ``argparse.bash`` should be in the same
 directory as a script that uses it.
 
-Python 2.6+ or 3.2+ is required. See
+Python 2.7 or 3.5+ is required. See
 https://docs.python.org/2.7/library/argparse.html for a description of
 the python module. Note that some of the Python module's features
 won't work as expected (or at all) in this simplistic implementation.
@@ -139,5 +139,5 @@ License
 
 MIT License (see LICENSE.txt)
 
-Copyright (c) 2017 Noah Hoffman
+Copyright (c) 2017 - 2022 Noah Hoffman
 
