@@ -21,7 +21,9 @@ won't work as expected (or at all) in this simplistic implementation.
 Installation
 ============
 
-Get ``argparse.bash``::
+Get ``argparse.bash``
+
+.. code-block:: shell
 
   wget https://raw.githubusercontent.com/nhoffman/argparse-bash/master/argparse.bash
   chmod +x argparse.bash
@@ -36,7 +38,9 @@ sourcing ``argparse.bash`` in the examples below).
 Usage
 =====
 
-Here's an example, ``example.sh``::
+Here's an example, ``example.sh``
+
+.. code-block:: bash
 
   #!/usr/bin/env bash
 
@@ -112,7 +116,9 @@ Error messages::
   example.sh: error: unrecognized arguments: -n baz
 
 Executing ``argparse.bash`` (as opposed to sourcing it) prints a
-script template to stdout::
+script template to stdout
+
+.. code-block:: bash
 
   $ ./argparse.bash
   #!/usr/bin/env bash
