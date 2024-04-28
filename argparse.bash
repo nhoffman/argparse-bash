@@ -13,7 +13,12 @@
 # MIT License - Copyright (c) 2015 Noah Hoffman
 
 argparse(){
-    argparser=$(mktemp 2>/dev/null || mktemp -t argparser)
+    local cmd=${FUNCNAME[1]}
+    if [[ $cmd == "main" ]]; then
+        cmd=$0
+    fi
+
+    local argparser=$(mktemp 2>/dev/null || mktemp -t argparser)
     cat > "$argparser" <<EOF
 from __future__ import print_function
 import sys
@@ -27,7 +32,7 @@ class MyArgumentParser(argparse.ArgumentParser):
         super(MyArgumentParser, self).print_help(file=file)
         sys.exit(1)
 
-parser = MyArgumentParser(prog=os.path.basename("$0"),
+parser = MyArgumentParser(prog=os.path.basename("$cmd"),
             # preserve newlines in description
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description="""$ARGPARSE_DESCRIPTION""")
