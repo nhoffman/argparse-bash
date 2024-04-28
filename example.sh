@@ -2,7 +2,9 @@
 
 ARGPARSE_DESCRIPTION="Sample script description"      # this is optional
 ARGPARSE_EPILOG="This is the epilog."      # this is optional
-source $(dirname $0)/argparse.bash || exit 1
+# shellcheck source=/Users/aberezin/apps/argparse.bash
+source "$ARGPARSE_PATH" || exit 1
+#optional way to plave src file:  source $(dirname $0)/argparse.bash || exit 1
 argparse "$@" <<EOF || exit 1
 parser.add_argument('infile')
 parser.add_argument('outfile')
@@ -17,7 +19,7 @@ EOF
 echo required infile: "$INFILE"
 echo required outfile: "$OUTFILE"
 echo the answer: "$THE_ANSWER"
-echo -n do the thing?
+echo -n "do the thing?"
 if [[ $DO_THE_THING ]]; then
     echo " yes, do it"
 else
